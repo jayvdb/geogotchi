@@ -124,7 +124,7 @@ class TestGeogotchi(unittest.TestCase):
 
         check_name(u"Sweden", q="Sweden")
         check_name(u"Sverige", q="Sweden", lang="sv")
-        check_name(u"Arlanda", name="Arlanda", feature_code="AIRP")
+        check_name(u"Stockholm-Arlanda Airport", name="Arlanda", feature_code="AIRP")
 
     def test_search_hotel(self):
         hotels = gg.search(q="sundsvall", feature_code="HTL")
