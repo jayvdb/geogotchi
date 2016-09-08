@@ -171,10 +171,19 @@ class Geogotchi(object):
         """Parse response. Returns a Python structure or raises an exception.
         """
         status_code = response.status_code
+        try:
+            parsed_response = json.loads(response.text)
+        except Exception as e:
+            parsed_response = e
+        else:
+            self._maybe_raise_geoname_error(parsed_response)
+
         if status_code != 200:
             raise errors.GeogotchiError("status code: %s" % status_code)
-        parsed_response = json.loads(response.text) 
-        self._maybe_raise_geoname_error(parsed_response)
+
+        if isinstance(parsed_response, Exception):
+            raise parsed_response
+
         return parsed_response
 
     def _maybe_raise_geoname_error(self, parsed_response):
